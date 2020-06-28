@@ -24,11 +24,11 @@ public class UserContactServiceImpl implements IUserContactService {
 
 //        PageHelper.startPage(1,3);  分页信息
 
-          List<UserContact> contactListByFlag = userContactMapper.getContactListByFlag(0);
+          List<UserContact> contactListByFlag = userContactMapper.getContactListByFlag(status);
 
 //       PageInfo gitPageInfo=new PageInfo<UserContact>(contactListByFlag);//分页信息
 
         System.out.println(JSONObject.toJSONString(contactListByFlag));
-        return null;
+        return contactListByFlag;
     }
 }

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qd.dao.BaseCountryAreaMapper" >
+  <resultMap id="BaseResultMap" type="com.qd.dmo.BaseCountryArea" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="arealevel" property="arealevel" jdbcType="INTEGER" />
+    <result column="validate_code" property="validateCode" jdbcType="VARCHAR" />
+    <result column="parent_id" property="parentId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="date_insert" property="dateInsert" jdbcType="TIMESTAMP" />
+    <result column="date_update" property="dateUpdate" jdbcType="TIMESTAMP" />
+    <result column="user_insert" property="userInsert" jdbcType="INTEGER" />
+    <result column="user_changed" property="userChanged" jdbcType="INTEGER" />
+    <result column="delete_mark" property="deleteMark" jdbcType="INTEGER" />
+    <result column="is_parent" property="isParent" jdbcType="INTEGER" />
+    <result column="py" property="py" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, arealevel, validate_code, parent_id, name, date_insert, date_update, user_insert, 
+    user_changed, delete_mark, is_parent, py
+  </sql>
+  <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from base_country_area
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteById" parameterType="java.lang.Integer" >
+    delete from base_country_area
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insertSelective" parameterType="com.qd.dmo.BaseCountryArea" >
+    insert into base_country_area
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="arealevel != null" >
+        arealevel,
+      </if>
+      <if test="validateCode != null" >
+        validate_code,
+      </if>
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="dateInsert != null" >
+        date_insert,
+      </if>
+      <if test="dateUpdate != null" >
+        date_update,
+      </if>
+      <if test="userInsert != null" >
+        user_insert,
+      </if>
+      <if test="userChanged != null" >
+        user_changed,
+      </if>
+      <if test="deleteMark != null" >
+        delete_mark,
+      </if>
+      <if test="isParent != null" >
+        is_parent,
+      </if>
+      <if test="py != null" >
+        py,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="arealevel != null" >
+        #{arealevel,jdbcType=INTEGER},
+      </if>
+      <if test="validateCode != null" >
+        #{validateCode,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="dateInsert != null" >
+        #{dateInsert,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dateUpdate != null" >
+        #{dateUpdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userInsert != null" >
+        #{userInsert,jdbcType=INTEGER},
+      </if>
+      <if test="userChanged != null" >
+        #{userChanged,jdbcType=INTEGER},
+      </if>
+      <if test="deleteMark != null" >
+        #{deleteMark,jdbcType=INTEGER},
+      </if>
+      <if test="isParent != null" >
+        #{isParent,jdbcType=INTEGER},
+      </if>
+      <if test="py != null" >
+        #{py,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByIdSelective" parameterType="com.qd.dmo.BaseCountryArea" >
+    update base_country_area
+    <set >
+      <if test="arealevel != null" >
+        arealevel = #{arealevel,jdbcType=INTEGER},
+      </if>
+      <if test="validateCode != null" >
+        validate_code = #{validateCode,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        parent_id = #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="dateInsert != null" >
+        date_insert = #{dateInsert,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dateUpdate != null" >
+        date_update = #{dateUpdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userInsert != null" >
+        user_insert = #{userInsert,jdbcType=INTEGER},
+      </if>
+      <if test="userChanged != null" >
+        user_changed = #{userChanged,jdbcType=INTEGER},
+      </if>
+      <if test="deleteMark != null" >
+        delete_mark = #{deleteMark,jdbcType=INTEGER},
+      </if>
+      <if test="isParent != null" >
+        is_parent = #{isParent,jdbcType=INTEGER},
+      </if>
+      <if test="py != null" >
+        py = #{py,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
