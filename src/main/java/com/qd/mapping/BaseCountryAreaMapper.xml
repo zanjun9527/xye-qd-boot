@@ -147,4 +147,26 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+
+
+  <select id="getAreaLists" resultMap="BaseResultMap"  >
+    select
+    <include refid="Base_Column_List" />
+    from base_country_area
+    where 1=1
+    <if test="arealevel != null" >
+      and arealevel = #{arealevel,jdbcType=INTEGER}
+    </if>
+    <if test="parenId != null" >
+      and parent_id = #{parentId,jdbcType=INTEGER}
+    </if>
+  </select>
+
+
+
+
+
+
+
 </mapper>
