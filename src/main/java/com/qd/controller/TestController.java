@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -91,6 +92,37 @@ public class TestController {
         mv.addObject("userName","zhangsan");
         mv.setViewName("test");
         return mv;
+    }
+
+
+    /**
+     * 预约报名提交
+     */
+    @RequestMapping("/test/addUserContact")
+    public void addUserContact(){
+
+        //cell_phone
+        //location
+        //flag
+        //date_insert
+
+        UserContact userContactDto = new UserContact();
+        userContactDto.setUserName("wangyun");
+        userContactDto.setCellPhone("18862241316");
+        userContactDto.setLocation(16);
+        userContactDto.setFlag(0);
+        userContactDto.setDateInsert(new Date());
+        userContactService.addUserContact(userContactDto);
+    }
+
+    /**
+     * 更新联系状态
+     */
+    @RequestMapping("/test/updateUserContact")
+    public void updateUserContact(){
+
+        String id="2";//联系方式id
+        userContactService.updateUserContactStatus(Integer.valueOf(id),1);//从已联系更新为未联系
     }
 
 

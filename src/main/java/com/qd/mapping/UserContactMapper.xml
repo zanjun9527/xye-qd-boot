@@ -110,4 +110,18 @@
      order by id desc
   </select>
 
+
+  <update id="updateUserContractStatus" >
+    UPDATE user_contact
+    SET flag = #{status,jdbcType=INTEGER}
+    WHERE id=#{id,jdbcType=INTEGER}
+  </update>
+
+
+
+
 </mapper>
+
+
+
+

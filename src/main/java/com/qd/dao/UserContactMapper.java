@@ -14,4 +14,8 @@ public interface UserContactMapper extends BaseMapper<UserContact>{
      */
     List<UserContact> getContactListByFlag(@Param("status") Integer status);
 
+
+
+    int updateUserContractStatus(@Param("id") Integer id,@Param("status") Integer status);
+
 }
