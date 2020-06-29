@@ -8,6 +8,33 @@
 
 
 你好吗 ${userName}
+<form action="" method="post">
+    <select name="first" onchange="changeFunc()">
+        <option value="test1">测试一</option>
+        <option value="test2">测试二</option>
+    </select>
+</form>
 
 </body>
+
+<script type="text/javascript">
+    function changeFunc(){
+        var firstObj = document.forms[0].first;
+        var secondObj = document.forms[0].second;
+        //先清空处理second
+        var len = secondObj.options.length;
+        for(var i =0;i<len;i++){
+            secondObj.options.remove(i);
+        }
+        //获取选择的值
+        var selectedValue = firstObj.value;
+        var selectedText = firstObj.options[firstObj.selectedIndex].text;
+        var newItem = new Option(selectedText,selectedValue);
+        secondObj.options.add(newItem);
+    }
+</script>
+
+
+
+
 </html>

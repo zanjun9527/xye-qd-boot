@@ -158,7 +158,7 @@
     <if test="arealevel != null" >
       and arealevel = #{arealevel,jdbcType=INTEGER}
     </if>
-    <if test="parenId != null" >
+    <if test="parentId != null" >
       and parent_id = #{parentId,jdbcType=INTEGER}
     </if>
   </select>

@@ -9,6 +9,6 @@ public interface BaseCountryAreaMapper extends BaseMapper<BaseCountryArea>{
 
 
 
-    List<BaseCountryArea> getAreaLists(@Param("arealevel") Integer level, @Param("parenId")Integer parentId);
+    List<BaseCountryArea> getAreaLists(@Param("arealevel") Integer level, @Param("parentId")Integer parentId);
 
 }
