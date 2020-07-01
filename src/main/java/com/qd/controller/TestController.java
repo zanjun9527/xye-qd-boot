@@ -6,8 +6,13 @@ import com.qd.dmo.BaseCountryArea;
 import com.qd.dmo.UserContact;
 import com.qd.service.ISimpleInfoService;
 import com.qd.service.IUserContactService;
+import com.qd.service.Impl.UserContactServiceImpl;
+import org.apache.commons.codec.digest.DigestUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,6 +24,8 @@ import java.util.List;
 
 @Controller
 public class TestController {
+
+    private final static Logger logger = LoggerFactory.getLogger(UserContactServiceImpl.class);
 
     @Autowired
     IUserContactService userContactService;
@@ -123,6 +130,80 @@ public class TestController {
 
         String id="2";//联系方式id
         userContactService.updateUserContactStatus(Integer.valueOf(id),1);//从已联系更新为未联系
+    }
+
+
+    /**
+     * 更新联系状态
+     */
+    @RequestMapping("/test/login")
+    @ResponseBody
+    public JSONObject login(HttpServletRequest request, HttpServletResponse response){
+        String cellPhone = request.getParameter("cellPhone");
+        String passWord = request.getParameter("passWord");
+        JSONObject jsonObject = new JSONObject();
+
+        jsonObject = simpleInfoService.adminLogin(cellPhone, passWord);
+
+        if(jsonObject!=null && "1".equals(jsonObject.getString("code"))){
+            request.getSession().setAttribute("loginFlag","1");//session放入登录标记
+        }
+
+        return jsonObject;
+    }
+
+
+
+
+
+    /**
+     *
+     * 更新密码，暂时简单功能
+     * @param request
+     * @param response
+     */
+    @RequestMapping("/test/doAdminUser")
+    @ResponseBody
+    public Object doAdminUser(HttpServletRequest request, HttpServletResponse response){
+
+        JSONObject jsonObject = new JSONObject();
+
+        String cellPhone = request.getParameter("cellPhone");
+        String passWord = request.getParameter("passWord");
+        String key = request.getParameter("superKey");
+        if(StringUtils.isEmpty(cellPhone) || StringUtils.isEmpty(passWord) || StringUtils.isEmpty(key)){
+            logger.error("参数缺失");
+            jsonObject.put("code","0");
+            jsonObject.put("msg","参数缺失");
+            return jsonObject;
+        }
+        if(!"qiangding123456".equals(key)){
+            logger.error("超级密码不正确");
+            jsonObject.put("code","0");
+            jsonObject.put("msg","超级密码不正确");
+            return jsonObject;
+
+        }
+        Boolean aBoolean = simpleInfoService.doAdminUser(cellPhone, passWord);
+
+        if(aBoolean){
+            jsonObject.put("code","1");
+            jsonObject.put("msg","更新密码成功");
+            return jsonObject;
+        }else{
+            jsonObject.put("code","1");
+            jsonObject.put("msg","更新密码失败");
+            return jsonObject;
+        }
+
+
+
+    }
+
+
+    public static void main(String[] args) {
+        String sk = DigestUtils.md5Hex("123123" + "abc123");
+        System.out.println(sk);
     }
 
 
