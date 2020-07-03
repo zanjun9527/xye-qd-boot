@@ -47,12 +47,9 @@ public class TestController {
     /**
      * @return
      */
-    @RequestMapping("/test/admin/say")
+    @RequestMapping("/admin/say")
     public void adminSay(){
-
         System.out.println("admin  say lalala");
-
-
     }
 
 
@@ -67,35 +64,20 @@ public class TestController {
     }
 
 
-    @RequestMapping("testArea")
-    @ResponseBody
-    public Object testArea(){
-        ModelAndView mv = new ModelAndView();
-        System.out.println("好了");
-
-        List<BaseCountryArea> areaLists = simpleInfoService.getAreaLists(null, 1017);
-
-        return areaLists;
-    }
-
     /**
-     * 地址初始页面
+     * 地址初始页面,初始化获取省，然后依次选择市、区
      * @return
      */
     @RequestMapping("testArea2")
     public ModelAndView testArea2(){
         ModelAndView mv = new ModelAndView();
-
-
         List<BaseCountryArea> areaLists = simpleInfoService.getAreaLists(2, null);
         mv.addObject("areaList",areaLists);
         mv.setViewName("test");
         return mv;
     }
-
-
     /**
-     * ajax选择返回地址
+     * ajax选择返回地址，依次选择市、区
      * @param request
      * @param response
      * @return
@@ -117,26 +99,13 @@ public class TestController {
 
 
 
-    @RequestMapping("test1")
-    public ModelAndView testIndex(){
-        ModelAndView mv = new ModelAndView();
-        mv.addObject("userName","zhangsan");
-        mv.setViewName("test");
-        return mv;
-    }
-
 
     /**
-     * 预约报名提交
+     * 预约报名提交,保存客户预约报名的信息
      */
     @RequestMapping("/test/addUserContact")
     public void addUserContact(){
-
-        //cell_phone
-        //location
-        //flag
-        //date_insert
-
+        //cell_phone    location    flag    date_insert
         UserContact userContactDto = new UserContact();
         userContactDto.setUserName("wangyun");
         userContactDto.setCellPhone("18862241316");
@@ -147,7 +116,7 @@ public class TestController {
     }
 
     /**
-     * 更新联系状态
+     * 更新联系状态，变更联系状态
      */
     @RequestMapping("/test/updateUserContact")
     public void updateUserContact(){
@@ -158,7 +127,7 @@ public class TestController {
 
 
     /**
-     * 更新联系状态
+     * 测试登录功能
      */
     @RequestMapping("/test/login")
     @ResponseBody
@@ -178,13 +147,12 @@ public class TestController {
 
 
     /**
-     * 更新联系状态
+     * 测试session过期时间
      */
     @RequestMapping("/test/session")
     @ResponseBody
     public JSONObject testSession(HttpServletRequest request, HttpServletResponse response){
         JSONObject jsonObject = new JSONObject();
-
         Object loginFlag = request.getSession().getAttribute("loginFlag");
         int interval = request.getSession().getMaxInactiveInterval();
         System.out.println("session过期时间(s):" + interval);
@@ -192,7 +160,12 @@ public class TestController {
         return jsonObject;
     }
 
-
+    /**
+     * 跳转登录页面
+     * @param request
+     * @param response
+     * @return
+     */
     @RequestMapping("/test/loginPage")
     public ModelAndView teslogin(HttpServletRequest request, HttpServletResponse response){
         ModelAndView mv = new ModelAndView();
@@ -206,16 +179,14 @@ public class TestController {
 
     /**
      *
-     * 更新密码，暂时简单功能
+     * 更新用户密码，目前简单设置
      * @param request
      * @param response
      */
     @RequestMapping("/test/doAdminUser")
     @ResponseBody
     public Object doAdminUser(HttpServletRequest request, HttpServletResponse response){
-
         JSONObject jsonObject = new JSONObject();
-
         String cellPhone = request.getParameter("cellPhone");
         String passWord = request.getParameter("passWord");
         String key = request.getParameter("superKey");
@@ -230,7 +201,6 @@ public class TestController {
             jsonObject.put("code","0");
             jsonObject.put("msg","超级密码不正确");
             return jsonObject;
-
         }
         Boolean aBoolean = simpleInfoService.doAdminUser(cellPhone, passWord);
 
@@ -243,16 +213,13 @@ public class TestController {
             jsonObject.put("msg","更新密码失败");
             return jsonObject;
         }
-
-
-
     }
 
 
-    public static void main(String[] args) {
-        String sk = DigestUtils.md5Hex("123123" + "abc123");
-        System.out.println(sk);
-    }
+//    public static void main(String[] args) {
+//        String sk = DigestUtils.md5Hex("123123" + "abc123");
+//        System.out.println(sk);
+//    }
 
 
 }
