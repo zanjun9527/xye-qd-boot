@@ -34,6 +34,30 @@ public class TestController {
     ISimpleInfoService simpleInfoService;
 
 
+    /**
+     * @return
+     */
+    @RequestMapping("index")
+    @ResponseBody
+    public Object index(){
+
+        return "";
+    }
+
+    /**
+     * @return
+     */
+    @RequestMapping("/test/admin/say")
+    public void adminSay(){
+
+        System.out.println("admin  say lalala");
+
+
+    }
+
+
+
+
     @RequestMapping("gogo")
     @ResponseBody
     public Object getUserContact(){
@@ -150,6 +174,30 @@ public class TestController {
         }
 
         return jsonObject;
+    }
+
+
+    /**
+     * 更新联系状态
+     */
+    @RequestMapping("/test/session")
+    @ResponseBody
+    public JSONObject testSession(HttpServletRequest request, HttpServletResponse response){
+        JSONObject jsonObject = new JSONObject();
+
+        Object loginFlag = request.getSession().getAttribute("loginFlag");
+        int interval = request.getSession().getMaxInactiveInterval();
+        System.out.println("session过期时间(s):" + interval);
+        System.out.println(loginFlag.toString());
+        return jsonObject;
+    }
+
+
+    @RequestMapping("/test/loginPage")
+    public ModelAndView teslogin(HttpServletRequest request, HttpServletResponse response){
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("testLogin");
+        return mv;
     }
 
 
